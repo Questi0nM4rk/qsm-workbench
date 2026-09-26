@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "qsm_workbench",
+  "project_id": "4f04d12c-2880-4963-a1f9-2c96bdfd2de1"
+}
