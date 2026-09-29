@@ -5,7 +5,6 @@ enters only through fixed files inside the selected provider root:
 
 - `Adapter.qml` for visual story/composition rendering.
 - `composition-types.json` for bounded composition validation.
-- `FlowHost.qml` for bounded semantic flow execution.
 - `tasks.json` for named operation declarations.
 
 The core rejects missing providers, unknown schema fields, executable document

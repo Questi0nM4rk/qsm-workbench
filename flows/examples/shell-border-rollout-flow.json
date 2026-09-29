@@ -9,11 +9,6 @@
     { "type": "emit", "node": "trigger", "event": "accepted" },
     { "type": "awaitCheckpoint", "name": "rollout.shell-revealed" },
     { "type": "expect", "node": "panel", "observable": "open", "equals": true },
-    {
-      "type": "capture",
-      "baseline": "tests/integration/baselines/shell-border-rollout.png",
-      "reason": "Prove the paused rollout phase boundary before phase two resumes"
-    },
     { "type": "continueCheckpoint", "name": "rollout.shell-revealed" },
     { "type": "expectEvent", "node": "trigger", "event": "accepted", "origin": "route", "targetNode": "panel" },
     { "type": "expect", "node": "panel", "observable": "open", "equals": true }

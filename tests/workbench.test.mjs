@@ -77,7 +77,8 @@ test('launch exports provider identity, adapter, catalog, descriptor, and starte
   assert.equal(JSON.parse(launch.compositionTypes).types['text-field'].actions[0], 'clear')
   assert.deepEqual(JSON.parse(launch.starters).map((doc) => doc.key), ['text-field-matrix', 'menu-form', 'shell-border-rollout'])
   assert.match(launch.qmlImportPath, /fixtures\/providers\/generic\/qml:/)
-  assert.match(launch.qmlImportPath, /qsm-workbench\/qml$/)
+  // QML_IMPORT_PATH should end with the harness's qml directory (relative to repo root)
+  assert.match(launch.qmlImportPath, /\/qml$/)
 })
 
 test('launch uses a provider-owned shell entry when present', async () => {

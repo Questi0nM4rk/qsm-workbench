@@ -45,9 +45,16 @@ test('rejects executable manifest fields and unsupported capabilities', async ()
   }
 })
 
-test('requires fixed files for declared capabilities', async () => {
+test('flows capability no longer requires provider FlowHost.qml', async () => {
   const root = await makeProvider({ version: 1, id: 'test-kit', capabilities: ['stories', 'flows'] })
-  assert.throws(() => loadProvider(root), /FlowHost\.qml does not exist/)
+  const provider = loadProvider(root)
+  assert.equal(provider.manifest.capabilities.includes('flows'), true)
+})
+
+test('rejects provider that ships FlowHost.qml', async () => {
+  const root = await makeProvider({ version: 1, id: 'test-kit', capabilities: ['stories', 'flows'] })
+  await writeFile(join(root, 'workbench/FlowHost.qml'), 'import QtQuick\nItem {}\n')
+  assert.throws(() => loadProvider(root), /provider ships FlowHost\.qml but the flow host belongs to the harness/)
 })
 
 test('rejects non-versioned or implicit story catalogs', async () => {

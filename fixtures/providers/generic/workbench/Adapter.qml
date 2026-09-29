@@ -1,5 +1,9 @@
 import QtQuick
 
+// The synthetic provider's whole contribution: a test double, not a real
+// component harness. It hosts no unit file, so its `integration` is declared
+// here in full and every flow step has one honest door to reach it. The flow
+// state machine itself is the harness's, driven through this adapter.
 Rectangle {
     id: root
     property string mode: "story"
@@ -12,16 +16,53 @@ Rectangle {
     property string storyKey: ""
     property string component: ""
     property string variant: ""
-    property string storyStatus: "ready"
-    property string storySource: mode === "composition" ? "generic-composition" : "generic-provider"
-    property string storyError: ""
-    property string textValue: mode === "composition" ? "" : "Generic text input"
-    property bool checkedValue: false
-    property bool openValue: false
+    readonly property string storyStatus: "ready"
+    readonly property string storySource: mode === "composition" ? "generic-composition" : "generic-provider"
+    readonly property string storyError: ""
     readonly property real contentExtentWidth: viewportWidth
     readonly property real contentExtentHeight: viewportHeight
-    property var controls: [{ "label": "State", "options": [{ "label": "Default" }, { "label": "Filled" }] }]
-    property var actions: [{ "label": "Clear" }, { "label": "Accept" }]
+    property var controls: [{
+        "label": "State",
+        "options": [
+            { "label": "Default", "set": { "variant": "default" } },
+            { "label": "Filled", "set": { "variant": "filled" } }
+        ]
+    }]
+    property var actions: [
+        { "label": "Clear", "trigger": "clear" },
+        { "label": "Accept", "trigger": "accept" },
+        { "label": "Open", "trigger": "open" }
+    ]
+
+    // The drivability surface the flow host reads: events it may inject,
+    // observables and keys it may call, a text driver, and the animation
+    // checkpoint it can hold at its declared boundary.
+    readonly property var integration: ({
+        events: ["changed", "accepted", "opened"],
+        observables: {
+            text: () => root.textValue,
+            open: () => root.openValue,
+            variant: () => root.variant
+        },
+        keys: {
+            Enter: () => root.accept(),
+            Escape: () => root.clear(),
+            Space: () => root.accept()
+        },
+        textDriver: text => root.setText(String(text ?? "")),
+        checkpoints: {
+            "rollout.opened": {
+                arm: () => { root.paused = true; return true },
+                reached: () => root.openValue,
+                resume: () => { root.paused = false; return true }
+            }
+        },
+        idle: () => true
+    })
+
+    property string textValue: ""
+    property bool openValue: false
+    property bool paused: false
 
     signal eventRecorded(var record)
     signal inspectionReady(var inspection)
@@ -31,6 +72,56 @@ Rectangle {
     color: "#20283a"
     border.color: "#6aa9ff"
     border.width: 2
+
+    onResetGenerationChanged: {
+        root.textValue = ""
+        root.openValue = false
+        root.paused = false
+    }
+
+    function setText(value) {
+        root.textValue = value
+        root.eventRecorded({ "origin": "component", "name": "changed", "payload": { "text": value } })
+        return true
+    }
+
+    function clear() {
+        return root.setText("")
+    }
+
+    function accept() {
+        root.eventRecorded({ "origin": "component", "name": "accepted", "payload": { "text": root.textValue } })
+        return true
+    }
+
+    function open() {
+        root.openValue = true
+        root.eventRecorded({ "origin": "component", "name": "opened", "payload": {} })
+        return true
+    }
+
+    function applyControl(groupIndex, optionIndex) {
+        const group = root.controls[groupIndex]
+        const option = group ? group.options[optionIndex] : null
+        if (!option || !option.set)
+            return false
+        for (const key in option.set)
+            root[key] = option.set[key]
+        return true
+    }
+
+    function triggerAction(index) {
+        const action = root.actions[index]
+        if (!action)
+            return false
+        if (action.trigger === "clear")
+            return root.clear()
+        if (action.trigger === "accept")
+            return root.accept()
+        if (action.trigger === "open")
+            return root.open()
+        return false
+    }
 
     function compositionNodes() {
         const out = []
@@ -45,20 +136,6 @@ Rectangle {
         if (composition && composition.root)
             walk(composition.root, 0)
         return out
-    }
-
-    function applyControl(groupIndex, optionIndex) {
-        textValue = optionIndex === 1 ? "Filled from control" : ""
-        eventRecorded({ "origin": "control", "name": "changed", "group": groupIndex, "option": optionIndex, "payload": { "text": textValue } })
-    }
-
-    function triggerAction(index) {
-        if (index === 0) {
-            textValue = ""
-            eventRecorded({ "origin": "action", "name": "clear" })
-        } else {
-            eventRecorded({ "origin": "component", "name": "accepted", "payload": { "text": textValue } })
-        }
     }
 
     function dumpTree() {

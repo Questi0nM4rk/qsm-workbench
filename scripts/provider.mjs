@@ -14,7 +14,6 @@ const providerFiles = {
   shell: 'shell.qml',
   stories: 'stories.json',
   compositionTypes: 'composition-types.json',
-  flowHost: 'FlowHost.qml',
   tasks: 'tasks.json',
 }
 
@@ -196,10 +195,12 @@ export function loadProvider(providerRoot) {
     assertFile(paths.compositionTypes, 'composition descriptor')
   if (manifest.capabilities.includes('tasks'))
     assertFile(paths.tasks, 'tasks')
-  if (existsSync(paths.flowHost)) assertFile(paths.flowHost, 'flow host')
 
-  if (manifest.capabilities.includes('flows') && !existsSync(paths.flowHost))
-    fail("manifest declares 'flows' but FlowHost.qml does not exist")
+  // The flow host is the harness's: a provider contributes an adapter and the
+  // adapter is the whole seam, so a provider host would be a second state
+  // machine that can do less and disagree with the first.
+  if (existsSync(resolve(workbenchDir, 'FlowHost.qml')))
+    fail('provider ships FlowHost.qml but the flow host belongs to the harness; remove it')
 
   const tasks = manifest.capabilities.includes('tasks') ? readJson(paths.tasks, 'tasks') : null
   if (tasks) validateTaskDefinitions(tasks)

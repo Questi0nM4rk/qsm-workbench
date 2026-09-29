@@ -27,9 +27,12 @@ node scripts/workbench.mjs --check --provider fixtures/providers/generic
 - An optional fixed `workbench/shell.qml` lets a provider supply its Quickshell
   config root while loading the same generic Workbench UI.
 - `workbench/composition-types.json` bounds composition data.
-- `workbench/FlowHost.qml` executes bounded semantic flow steps.
 - `workbench/tasks.json` maps provider task names to fixed workbench operations;
   no command strings are accepted.
+
+The flow host belongs to the harness, not to a provider: `qml/QsmWorkbench/
+FlowHost.qml` is the fixed template the flow runner injects data into and runs
+against the selected provider's `Adapter.qml`.
 
 The included `fixtures/providers/generic` provider is the generic regression
 provider and `fixtures/providers/second` proves a second provider can validate.

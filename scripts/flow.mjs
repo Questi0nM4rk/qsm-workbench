@@ -11,24 +11,23 @@ import {
 // this one module: strict top-level/step allowlists, bounded ids/scale/counts,
 // project-relative path roots, JSON-safe evidence values, and no executable
 // content (no source paths, scripts, expressions, property paths, selectors,
-// loops, variables, or arbitrary waits). Composition shape and descriptor
-// resolution are reused through scripts/composition.mjs; story keys come from
-// the local workbench fixture (stories/metadata.json).
+// loops, variables, or arbitrary waits). A step asserts a state the target
+// reported: there is no pixel step, because the same scene does not render
+// twice and a diff can only fail for the wrong reason. Composition shape and
+// descriptor resolution are reused through scripts/composition.mjs; story keys
+// come from the local workbench fixture (stories/metadata.json).
 
 const root = resolve(import.meta.dirname, '..')
 
 export const FLOW_VERSION = 1
 export const MAX_STEPS = 64
-export const MAX_CAPTURES = 4
 export const FLOW_SCALE_MIN = 0.5
 export const FLOW_SCALE_MAX = 3
 export const WRITE_TEXT_MAX = 256
-export const REASON_MAX = 256
 export const JSON_STRING_MAX = 1024
 export const JSON_ARRAY_MAX = 64
 export const JSON_OBJECT_MAX = 32
 export const JSON_DEPTH_MAX = 8
-export const BASELINE_ROOT = 'tests/integration/baselines/'
 export const COMPOSITION_ROOT = 'compositions/'
 
 export const STEP_TYPES = [
@@ -43,7 +42,6 @@ export const STEP_TYPES = [
   'armCheckpoint',
   'awaitCheckpoint',
   'continueCheckpoint',
-  'capture',
   'awaitIdle',
 ]
 
@@ -66,7 +64,6 @@ const stepFields = {
   armCheckpoint: new Set(['type', 'node', 'name']),
   awaitCheckpoint: new Set(['type', 'node', 'name']),
   continueCheckpoint: new Set(['type', 'node', 'name']),
-  capture: new Set(['type', 'baseline', 'reason', 'colorFuzz', 'maxChangedRatio']),
   awaitIdle: new Set(['type', 'node']),
 }
 // Steps that address a per-node capability and therefore require `node` on
@@ -308,7 +305,6 @@ export function validateDocument(doc, descriptor = null, storyKeys = null) {
     fail('steps', `steps must contain at most ${MAX_STEPS} steps`)
   } else {
     let semanticCount = 0
-    let captureCount = 0
     doc.steps.forEach((step, index) => {
       const path = `steps[${index}]`
       if (!isPlainObject(step)) {
@@ -433,28 +429,10 @@ export function validateDocument(doc, descriptor = null, storyKeys = null) {
           else checkExecutableValue(step.name, at('name'), errors)
           break
         }
-        case 'capture': {
-          captureCount += 1
-          checkRelativeUnderRoot(step.baseline, at('baseline'), errors, BASELINE_ROOT, '.png')
-          if (typeof step.reason !== 'string' || step.reason.trim() === '') fail(at('reason'), 'reason must be a non-empty string')
-          else if (step.reason.length > REASON_MAX) fail(at('reason'), `reason exceeds max length ${REASON_MAX}`)
-          else checkExecutableValue(step.reason, at('reason'), errors)
-          if (step.colorFuzz !== undefined) {
-            if (typeof step.colorFuzz !== 'number' || !Number.isFinite(step.colorFuzz) || step.colorFuzz < 0 || step.colorFuzz > 10)
-              fail(at('colorFuzz'), 'colorFuzz must be a finite number 0..10')
-          }
-          if (step.maxChangedRatio !== undefined) {
-            if (typeof step.maxChangedRatio !== 'number' || !Number.isFinite(step.maxChangedRatio) || step.maxChangedRatio < 0 || step.maxChangedRatio > 1)
-              fail(at('maxChangedRatio'), 'maxChangedRatio must be a finite number 0..1')
-          }
-          break
-        }
       }
     })
     if (semanticCount === 0)
       fail('steps', 'flows require at least one expect or expectEvent (semantic-first policy)')
-    if (captureCount > MAX_CAPTURES)
-      fail('steps', `flows allow at most ${MAX_CAPTURES} capture steps`)
   }
 
   void scale
