@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "key": "text-field-clear-accept",
+  "target": { "story": "text-input" },
+  "steps": [
+    { "type": "reset" },
+    { "type": "action", "name": "clear" },
+    { "type": "write", "text": "Ada Lovelace" },
+    { "type": "key", "key": "Enter" },
+    { "type": "expect", "observable": "text", "equals": "Ada Lovelace" },
+    { "type": "expectEvent", "event": "accepted", "origin": "component" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "stories": {
+    "text-input": {
+      "component": "text-input",
+      "variant": "default",
+      "viewport": [800, 500],
+      "title": "Generic text input",
+      "description": "Synthetic story.",
+      "tags": ["generic"],
+      "unit": "workbench/units/TextInput.qml",
+      "source": "qml/GenericTextInput.qml"
+    }
+  }
+}

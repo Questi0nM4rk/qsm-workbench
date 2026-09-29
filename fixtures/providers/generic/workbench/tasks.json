@@ -1,0 +1,7 @@
+{
+  "validate": { "operation": "validate", "label": "Validate provider" },
+  "story-capture": { "operation": "story-capture", "label": "Capture story" },
+  "composition-check": { "operation": "composition-check", "label": "Check composition" },
+  "composition-capture": { "operation": "composition-capture", "label": "Capture composition" },
+  "flow": { "operation": "flow", "label": "Run flow" }
+}

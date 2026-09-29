@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "stories": {
+    "second-story": { "component": "second", "variant": "default", "viewport": [640, 480], "unit": "workbench/units/Second.qml" }
+  }
+}

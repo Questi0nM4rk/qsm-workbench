@@ -1,0 +1,2 @@
+module QsmWorkbench
+WorkbenchHost 1.0 WorkbenchHost.qml

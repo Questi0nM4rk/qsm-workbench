@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "key": "shell-border-rollout-flow",
+  "target": { "composition": "compositions/examples/shell-border-rollout.json" },
+  "scale": 1.25,
+  "steps": [
+    { "type": "reset" },
+    { "type": "armCheckpoint", "name": "rollout.shell-revealed" },
+    { "type": "emit", "node": "trigger", "event": "accepted" },
+    { "type": "awaitCheckpoint", "name": "rollout.shell-revealed" },
+    { "type": "expect", "node": "panel", "observable": "open", "equals": true },
+    {
+      "type": "capture",
+      "baseline": "tests/integration/baselines/shell-border-rollout.png",
+      "reason": "Prove the paused rollout phase boundary before phase two resumes"
+    },
+    { "type": "continueCheckpoint", "name": "rollout.shell-revealed" },
+    { "type": "expectEvent", "node": "trigger", "event": "accepted", "origin": "route", "targetNode": "panel" },
+    { "type": "expect", "node": "panel", "observable": "open", "equals": true }
+  ]
+}

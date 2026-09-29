@@ -1,0 +1,14 @@
+{
+  "name": "qsm-workbench",
+  "private": true,
+  "type": "module",
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "workbench": "node scripts/workbench.mjs",
+    "test": "node --test",
+    "validate": "npm test && node scripts/workbench.mjs --check --provider fixtures/providers/generic",
+    "validate:compositions": "node scripts/composition.mjs check compositions/examples/text-field-matrix.json --provider fixtures/providers/generic && node scripts/composition.mjs check compositions/examples/menu-form.json --provider fixtures/providers/generic && node scripts/composition.mjs check compositions/examples/shell-border-rollout.json --provider fixtures/providers/generic",
+    "validate:flows": "node scripts/flow.mjs check flows/examples/text-field-clear-accept.json && node scripts/flow.mjs check flows/examples/shell-border-rollout-flow.json",
+    "flow": "node scripts/flow-runner.mjs run"
+  }
+}

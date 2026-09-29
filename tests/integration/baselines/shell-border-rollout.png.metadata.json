@@ -1,0 +1,14 @@
+{
+  "flowKey": "shell-border-rollout-flow",
+  "logicalHeight": 600,
+  "logicalWidth": 960,
+  "physicalHeight": 750,
+  "physicalWidth": 1200,
+  "qtMajor": 6,
+  "qtMinor": 11,
+  "renderScale": 1.25,
+  "renderer": "opengl",
+  "stepIndex": 5,
+  "target": "composition:compositions/examples/shell-border-rollout.json",
+  "theme": "deep-night"
+}

@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "id": "generic-provider",
+  "title": "Generic Provider",
+  "description": "Synthetic provider for workbench validation.",
+  "capabilities": ["stories", "compositions", "flows", "tasks"]
+}

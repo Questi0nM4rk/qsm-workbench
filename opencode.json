@@ -1,0 +1,41 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "qsm-implementer": {
+      "model": "opencode/muse-spark-1.3-contributor-free"
+    },
+    "qsm-codebase-researcher": {
+      "model": "opencode/nemotron-3.5-lightning-free"
+    },
+    "qsm-dependency-researcher": {
+      "model": "opencode/nemotron-3.5-lightning-free"
+    },
+    "qsm-web-research": {
+      "model": "opencode/nemotron-3.5-lightning-free"
+    },
+    "qsm-source-researcher": {
+      "model": "opencode/nemotron-3.5-lightning-free"
+    },
+    "qsm-technique-researcher": {
+      "model": "opencode/nemotron-3.5-lightning-free"
+    },
+    "qsm-runner": {
+      "model": "opencode/nemotron-3.5-lightning-free"
+    },
+    "explore": {
+      "model": "opencode/nemotron-3.5-lightning-free"
+    },
+    "general": {
+      "model": "opencode/mimo-v2.6-flash-free"
+    },
+    "qsm-readability-reviewer": {
+      "model": "opencode/mimo-v2.6-flash-free"
+    },
+    "qsm-visualizer": {
+      "model": "opencode/mimo-v2.6-flash-free"
+    },
+    "qsm-synthesis-pass": {
+      "model": "opencode/big-pickle"
+    }
+  }
+}

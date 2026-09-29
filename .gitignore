@@ -10,3 +10,6 @@ state/
 .beads-credential-key
 .beads/proxieddb/
 *.gate.lock*
+
+# Generated analysis output, not source
+graphify-out/

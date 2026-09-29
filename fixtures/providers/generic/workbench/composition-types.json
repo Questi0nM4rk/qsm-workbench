@@ -1,0 +1,17 @@
+{
+  "tokens": ["none", "xs", "sm", "md", "lg"],
+  "types": {
+    "column": { "props": { "spacing": { "type": "spacing" }, "padding": { "type": "spacing" } }, "events": [], "actions": [], "children": "many" },
+    "row": { "props": { "spacing": { "type": "spacing" }, "padding": { "type": "spacing" } }, "events": [], "actions": [], "children": "many" },
+    "stack": { "props": { "spacing": { "type": "spacing" }, "padding": { "type": "spacing" } }, "events": [], "actions": [], "children": "many" },
+    "text-field": { "props": { "size": { "type": "enum", "values": ["sm", "md", "lg"] }, "state": { "type": "enum", "values": ["default", "filled", "error", "disabled"] }, "label": { "type": "string", "maxLength": 80 }, "text": { "type": "string", "maxLength": 256 }, "width": { "type": "number", "min": 80, "max": 1200 } }, "events": ["accepted", "changed"], "actions": ["clear", "focus"], "children": "none" },
+    "checkbox": { "props": { "checked": { "type": "boolean" }, "label": { "type": "string", "maxLength": 80 } }, "events": ["toggled"], "actions": ["toggle", "check", "uncheck"], "children": "none" },
+    "switch": { "props": { "checked": { "type": "boolean" }, "label": { "type": "string", "maxLength": 80 } }, "events": ["toggled"], "actions": ["toggle"], "children": "none" },
+    "radio": { "props": { "checked": { "type": "boolean" }, "label": { "type": "string", "maxLength": 80 } }, "events": ["selected"], "actions": ["select"], "children": "none" },
+    "slider": { "props": { "value": { "type": "number", "min": 0, "max": 100 }, "orientation": { "type": "enum", "values": ["horizontal", "vertical"] }, "label": { "type": "string", "maxLength": 80 } }, "events": ["changed"], "actions": ["reset"], "children": "none" },
+    "segmented": { "props": { "selected": { "type": "number", "integer": true, "min": 0, "max": 8 }, "label": { "type": "string", "maxLength": 80 } }, "events": ["changed"], "actions": ["reset"], "children": "none" },
+    "spin-box": { "props": { "value": { "type": "number", "min": 0, "max": 100 }, "label": { "type": "string", "maxLength": 80 } }, "events": ["changed"], "actions": ["increment", "decrement", "reset"], "children": "none" },
+    "menu": { "props": { "title": { "type": "string", "maxLength": 80 }, "open": { "type": "boolean" } }, "events": ["opened", "closed", "selected"], "actions": ["open", "close", "toggle"], "children": "many" },
+    "shell-border-rollout": { "props": { "side": { "type": "enum", "values": ["left", "right", "top", "bottom"] }, "open": { "type": "boolean" } }, "events": ["opened", "closed"], "actions": ["open", "close", "toggle"], "children": "many" }
+  }
+}
