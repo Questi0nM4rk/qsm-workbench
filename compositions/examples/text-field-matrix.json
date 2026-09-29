@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "key": "text-field-matrix",
+  "viewport": [960, 640],
+  "root": {
+    "id": "matrix",
+    "type": "column",
+    "props": { "spacing": "md", "padding": "md" },
+    "children": [
+      {
+        "id": "row-sm",
+        "type": "row",
+        "props": { "spacing": "sm", "padding": "none" },
+        "children": [
+          { "id": "sm-default", "type": "text-field", "props": { "size": "sm", "state": "default", "label": "Small", "text": "" } },
+          { "id": "sm-filled", "type": "text-field", "props": { "size": "sm", "state": "filled", "label": "Small", "text": "Ada" } },
+          { "id": "sm-error", "type": "text-field", "props": { "size": "sm", "state": "error", "label": "Small", "text": "Ada" } },
+          { "id": "sm-disabled", "type": "text-field", "props": { "size": "sm", "state": "disabled", "label": "Small", "text": "Ada" } }
+        ]
+      },
+      {
+        "id": "row-md",
+        "type": "row",
+        "props": { "spacing": "sm", "padding": "none" },
+        "children": [
+          { "id": "md-default", "type": "text-field", "props": { "size": "md", "state": "default", "label": "Medium", "text": "" } },
+          { "id": "md-filled", "type": "text-field", "props": { "size": "md", "state": "filled", "label": "Medium", "text": "Ada" } },
+          { "id": "md-error", "type": "text-field", "props": { "size": "md", "state": "error", "label": "Medium", "text": "Ada" } },
+          { "id": "md-disabled", "type": "text-field", "props": { "size": "md", "state": "disabled", "label": "Medium", "text": "Ada" } }
+        ]
+      },
+      {
+        "id": "row-lg",
+        "type": "row",
+        "props": { "spacing": "sm", "padding": "none" },
+        "children": [
+          { "id": "lg-default", "type": "text-field", "props": { "size": "lg", "state": "default", "label": "Large", "text": "" } },
+          { "id": "lg-filled", "type": "text-field", "props": { "size": "lg", "state": "filled", "label": "Large", "text": "Ada" } },
+          { "id": "lg-error", "type": "text-field", "props": { "size": "lg", "state": "error", "label": "Large", "text": "Ada" } },
+          { "id": "lg-disabled", "type": "text-field", "props": { "size": "lg", "state": "disabled", "label": "Large", "text": "Ada" } }
+        ]
+      }
+    ]
+  }
+}

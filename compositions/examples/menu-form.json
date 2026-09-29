@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "key": "menu-form",
+  "viewport": [800, 600],
+  "root": {
+    "id": "form",
+    "type": "column",
+    "props": { "spacing": "md", "padding": "md" },
+    "children": [
+      {
+        "id": "account-menu",
+        "type": "menu",
+        "props": { "title": "Account", "open": true },
+        "children": [
+          { "id": "name-field", "type": "text-field", "props": { "size": "md", "state": "filled", "label": "Name", "text": "Ada" } },
+          { "id": "newsletter-opt", "type": "checkbox", "props": { "checked": true, "label": "Subscribe to updates" } },
+          { "id": "theme-pick", "type": "segmented", "props": { "selected": 1, "label": "Theme" } },
+          { "id": "volume-level", "type": "slider", "props": { "value": 70, "orientation": "horizontal", "label": "Volume" } }
+        ]
+      }
+    ]
+  },
+  "links": [
+    { "from": { "node": "name-field", "event": "accepted" }, "to": { "node": "account-menu", "action": "close" } }
+  ]
+}

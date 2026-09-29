@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "key": "shell-border-rollout",
+  "viewport": [960, 600],
+  "root": {
+    "id": "demo",
+    "type": "column",
+    "props": { "spacing": "md", "padding": "md" },
+    "children": [
+      { "id": "trigger", "type": "text-field", "props": { "size": "md", "state": "default", "label": "Command", "text": "" } },
+      {
+        "id": "panel",
+        "type": "shell-border-rollout",
+        "props": { "side": "right", "open": false },
+        "children": [
+          { "id": "confirm-step", "type": "checkbox", "props": { "checked": false, "label": "Confirm rollout" } },
+          { "id": "panel-level", "type": "slider", "props": { "value": 30, "orientation": "horizontal", "label": "Level" } },
+          { "id": "panel-mode", "type": "switch", "props": { "checked": true, "label": "Enabled" } }
+        ]
+      }
+    ]
+  },
+  "links": [
+    { "from": { "node": "trigger", "event": "accepted" }, "to": { "node": "panel", "action": "open" } },
+    { "from": { "node": "confirm-step", "event": "toggled" }, "to": { "node": "panel", "action": "close" } }
+  ]
+}
