@@ -7,6 +7,8 @@
 [![license](https://img.shields.io/badge/license-GPL--3.0-blue)](./LICENSE)
 [![Quickshell](https://img.shields.io/badge/Quickshell-QML-1f6feb)](https://quickshell.org)
 [![Hyprland](https://img.shields.io/badge/Hyprland-Wayland-58e1ff)](https://hypr.land)
+[![last commit](https://img.shields.io/github/last-commit/Questi0nM4rk/qsm-workbench)](https://github.com/Questi0nM4rk/qsm-workbench/commits)
+[![code size](https://img.shields.io/github/languages/code-size/Questi0nM4rk/qsm-workbench)](https://github.com/Questi0nM4rk/qsm-workbench)
 
 </div>
 
@@ -20,12 +22,12 @@ It would have no reason to exist if Quickshell shipped a component preview with 
 
 ## Quickstart
 
-Requires Arch Linux, Hyprland, Quickshell 0.3.2 (the version this was tested with), and Node.js 24.
+Requires Arch Linux, Hyprland, Quickshell, and Node.js 24.
 
 ```bash
 git clone https://github.com/Questi0nM4rk/qsm-workbench && cd qsm-workbench
 npm run validate
-# 32 tests pass, then: validated 1 stories from .../fixtures/providers/generic/workbench/stories.json
+# the test summary ends with `ℹ fail 0`, then: validated <N> stories from .../fixtures/providers/generic/workbench/stories.json
 ```
 
 `npm run validate` does not open a window. To open the workbench on a provider:
@@ -58,14 +60,17 @@ The behaviour specs are in `openspec/`.
 
 ## Numbers
 
-Measured with `scc --exclude-dir .git,.beads .` on the committed tree:
+[![last commit](https://img.shields.io/github/last-commit/Questi0nM4rk/qsm-workbench)](https://github.com/Questi0nM4rk/qsm-workbench/commits)
+[![code size](https://img.shields.io/github/languages/code-size/Questi0nM4rk/qsm-workbench)](https://github.com/Questi0nM4rk/qsm-workbench)
 
-| Language | Files | Code lines |
-| --- | --- | --- |
-| QML | 9 | 4140 |
-| JavaScript | 15 | 2249 |
+| What | How to measure |
+| --- | --- |
+| Lines of code per language | `scc --exclude-dir .git,.beads .` on the committed tree |
+| Test count and duration | `npm test`, the summary at the end prints `ℹ tests` and `ℹ duration_ms` |
+| Fixture provider validation | `npm run validate` |
+| Window startup time | Not measured |
 
-`node --test` runs 32 tests in about 1.5 s.
+Commits include agent-authored work under my identity; design, orchestration and review are mine.
 
 ## Status
 
